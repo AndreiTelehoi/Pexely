@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import { ImagesPage } from './images/ImagesPage'
 
 function TabPanel(props) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, currentUser, ...other } = props;
 
   return (
     <div
@@ -20,7 +20,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box p={3}>
+        <Box div={3}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MainPage() {
+export default function MainPage({currentUser}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -83,7 +83,7 @@ export default function MainPage() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <ImagesPage/>
+        <ImagesPage currentUser={currentUser}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         Page Two

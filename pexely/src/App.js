@@ -2,24 +2,21 @@ import logo from './logo.svg';
 import  MainPage  from './components/MainPage';
 
 import './App.css';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"; 
 import { SignIn } from './components/signIn/SignIn';
 
 function App() {
 
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
+    axios.defaults.headers.common['Authorization'] = process.env.REACT_APP_PEXELS_KEY;
   })
 
   return (
     <div className="App">
-      <Router>
-        <Switch>
-          <Route exact path ="/" component={MainPage}></Route>
-          <Route path="/signin" component={SignIn}></Route>
-        </Switch>
-      </Router>
+      {user !== null ? <MainPage currentUser = {user}/> : <SignIn setUser = {setUser} /> }
     </div>
   );
 }

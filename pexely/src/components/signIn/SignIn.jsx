@@ -3,27 +3,42 @@ import React, { useEffect, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import "./Signin.css";
-import { auth, googleProvider } from '../../firebase';
+import { auth, db, googleProvider } from '../../firebase';
 import { useHistory } from 'react-router';
 
-
-export const SignIn = () => {
-    const [count, setCount] = useState(0);
-    const history = useHistory();
-   useEffect(() => {
-
-   });
+export const SignIn = ( { setUser } ) => {
 
    const authenticate = () => {
        auth.signInWithPopup(googleProvider).then(res => {
-           history.push("/");
-       }).catch(err => {
-           console.log(err);
-       })
+
+        console.log(res);
+           let loggedUser = {
+               displayName: res.additionalUserInfo.profile.given_name,
+               id: res.additionalUserInfo.profile.id
+           }
+
+        if (res.additionalUserInfo.isNewUser) {
+          
+            db.collection("users").doc(loggedUser.id).set({
+     
+                photos: []
+          
+            })
+            .then((docRef) => {
+                console.log("Document written with ID: ", docRef.id);
+            })
+            .catch((error) => {
+                console.error("Error adding document: ", error);
+            });
+        }
+           
+           setUser(loggedUser);
+        }).catch(err => {
+          alert('There was an error');
+       });
    }
 
   return (
-
         <div className="centered">
             <div onClick={() => authenticate() } className="google-btn">
             <div className="google-icon-wrapper">
@@ -32,6 +47,5 @@ export const SignIn = () => {
             <p className="btn-text"><b>Sign in with google</b></p>
             </div>
         </div>
-
   );
 }
