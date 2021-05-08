@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      {user !== null ? <MainPage currentUser = {user}/> : <SignIn setUser = {setUser} /> }
+      {user !== null ? <MainPage setUser = {setUser} currentUser = {user}/> : <SignIn setUser = {setUser} /> }
     </div>
   );
 }

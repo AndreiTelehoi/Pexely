@@ -11,7 +11,6 @@ export const SignIn = ( { setUser } ) => {
    const authenticate = () => {
        auth.signInWithPopup(googleProvider).then(res => {
 
-        console.log(res);
            let loggedUser = {
                displayName: res.additionalUserInfo.profile.given_name,
                id: res.additionalUserInfo.profile.id
@@ -40,6 +39,8 @@ export const SignIn = ( { setUser } ) => {
 
   return (
         <div className="centered">
+            <h1>Welcome to Pexely </h1>
+            <h3>Log in to continue to the app</h3>
             <div onClick={() => authenticate() } className="google-btn">
             <div className="google-icon-wrapper">
                 <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>

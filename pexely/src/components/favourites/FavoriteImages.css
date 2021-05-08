@@ -1,0 +1,21 @@
+.imagesContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.inputContainer {
+    display: flex;
+    justify-content: space-around;
+    width: 500px;
+    margin: 30px auto;
+}
+
+.searchButton {
+    margin-left: 10px;
+}
+
+.sizeInput {
+    width: 150px;
+    margin-left: 30px;
+}

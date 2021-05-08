@@ -24,7 +24,6 @@ export const ImagesPage = ({currentUser}) => {
           per_page: sizeSearch
         } 
       }).then(res => {
-          console.log(res.data.photos)
           setImages(res.data.photos);
           setLoading(false);
       }).finally(() => {
@@ -41,14 +40,11 @@ export const ImagesPage = ({currentUser}) => {
   }
 
   const addToFavorites = (image) => {
-    console.log(currentUser);
     db.collection("users").doc(currentUser.id).update({
-     
-        photos: firebase.firestore.FieldValue.arrayUnion({src: image.imageSource, id: image.imageId})
-  
+        photos: firebase.firestore.FieldValue.arrayUnion(image)
     })
     .then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
+        console.log("Document written ");
     })
     .catch((error) => {
         console.error("Error adding document: ", error);

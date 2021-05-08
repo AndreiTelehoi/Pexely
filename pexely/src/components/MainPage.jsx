@@ -7,6 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { ImagesPage } from './images/ImagesPage'
+import { FavoriteImages } from './favourites/FavoriteImages';
+import { Button } from '@material-ui/core';
 
 function TabPanel(props) {
   const { children, value, index, currentUser, ...other } = props;
@@ -58,9 +60,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
   },
+  logOut: {
+    marginTop: 10,
+    position: 'absolute',
+    right: 10
+  }
 }));
 
-export default function MainPage({currentUser}) {
+export default function MainPage({setUser, currentUser}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -68,29 +75,35 @@ export default function MainPage({currentUser}) {
     setValue(newValue);
   };
 
+  const logOut = () => {
+    setUser(null);
+  }
+
   return (
     <div className={classes.root}>
+       
       <AppBar position="static">
         <Tabs
           variant="fullWidth"
           value={value}
           onChange={handleChange}
-          aria-label="nav tabs example"
         >
-          <LinkTab label="Page One" href="/drafts" {...a11yProps(0)} />
-          <LinkTab label="Page Two" href="/trash" {...a11yProps(1)} />
-          <LinkTab label="Page Three" href="/spam" {...a11yProps(2)} />
+          <LinkTab label="Search" href="/drafts" {...a11yProps(0)} />
+          <LinkTab label="Saved images" href="/trash" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
+
+      <Button onClick={() => logOut()} className={classes.logOut} variant="contained" color="primary">
+            Log out
+        </Button>
+
       <TabPanel value={value} index={0}>
         <ImagesPage currentUser={currentUser}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Page Two
+        <FavoriteImages currentUser={currentUser}/>
       </TabPanel>
-      <TabPanel value={value} index={2}>
-        Page Three
-      </TabPanel>
+     
     </div>
   );
 }
