@@ -81,7 +81,7 @@ export default function MainPage({setUser, currentUser}) {
 
   return (
     <div className={classes.root}>
-       
+    
       <AppBar position="static">
         <Tabs
           variant="fullWidth"
@@ -100,6 +100,7 @@ export default function MainPage({setUser, currentUser}) {
       <TabPanel value={value} index={0}>
         <ImagesPage currentUser={currentUser}/>
       </TabPanel>
+
       <TabPanel value={value} index={1}>
         <FavoriteImages currentUser={currentUser}/>
       </TabPanel>

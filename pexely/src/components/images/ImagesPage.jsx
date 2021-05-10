@@ -6,7 +6,7 @@ import "./ImagesPageStyle.css";
 import { db } from '../../firebase';
 import firebase from "firebase/app"
 
-export const ImagesPage = ({currentUser}) => {
+export const ImagesPage = ({ currentUser }) => {
     const [images, setImages] = useState([]);
     const [isLoading, setLoading] = useState(false);
     const [categorySearch, setCategorySearch] = useState('');

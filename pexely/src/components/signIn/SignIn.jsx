@@ -5,6 +5,15 @@ import Icon from '@material-ui/core/Icon';
 import "./Signin.css";
 import { auth, db, googleProvider } from '../../firebase';
 import { useHistory } from 'react-router';
+import { makeStyles } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+    header: {
+    color: 'white'
+    },
+
+
+  }));
 
 export const SignIn = ( { setUser } ) => {
 
@@ -19,9 +28,7 @@ export const SignIn = ( { setUser } ) => {
         if (res.additionalUserInfo.isNewUser) {
           
             db.collection("users").doc(loggedUser.id).set({
-     
                 photos: []
-          
             })
             .then((docRef) => {
                 console.log("Document written with ID: ", docRef.id);
@@ -36,17 +43,22 @@ export const SignIn = ( { setUser } ) => {
           alert('There was an error');
        });
    }
-
+   var classes = useStyles();
   return (
-        <div className="centered">
-            <h1>Welcome to Pexely </h1>
-            <h3>Log in to continue to the app</h3>
-            <div onClick={() => authenticate() } className="google-btn">
-            <div className="google-icon-wrapper">
-                <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
-            </div>
-            <p className="btn-text"><b>Sign in with google</b></p>
-            </div>
+   
+        <div className="centered gradient">
+          
+              
+                <h1 className={classes.header} >Welcome to Pexely </h1>
+                <h3 className={classes.header}>Log in to continue to the app</h3>
+                <div onClick={() => authenticate() } className="google-btn">
+                <div className="google-icon-wrapper">
+                    <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                </div>
+                <p className="btn-text"><b>Sign in with google</b></p>
+                </div>
+       
+         
         </div>
   );
 }
